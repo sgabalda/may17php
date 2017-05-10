@@ -1,0 +1,4 @@
+EL FORMULARIO
+<FORM ACTION="enviar.php" METHOD="POST">
+
+  
