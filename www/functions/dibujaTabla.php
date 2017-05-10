@@ -20,13 +20,24 @@ function dibujaTabla($array)
       for ($i=0;$i<$filasmax;$i++)
       {
         $html.="<tr>";
-          // Crear columnas
-          for($j=0;$j<$columnasmax;$j++)
+          // Verificacion de si el array es unidimensional
+          if(!is_array($array[0]))
           {
             $html.="<td>";
-                // Para cada columna poner el valor
-                $html.=$array[$i][$j];
+                // Poner el valor
+                $html.=$array[$i];
             $html.="</td>";
+          }
+          else
+          {
+            // Crear columnas
+            for($j=0;$j<$columnasmax;$j++)
+            {
+              $html.="<td>";
+                  // Para cada columna poner el valor
+                  $html.=$array[$i][$j];
+              $html.="</td>";
+            }
           }
         $html.="</tr>";
       }

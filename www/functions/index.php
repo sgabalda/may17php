@@ -14,6 +14,9 @@ if(!is_array($miFibo))
 
 // $html = dibujaTabla($miTabla);
 $html = dibujaTabla($miFibo);
+if(!is_string($html))
+  die("NO STRING");
+
 
 // echo "<pre>";
 // print_r($miFibo);
@@ -23,7 +26,9 @@ $html = dibujaTabla($miFibo);
 // print_r($miTabla);
 // echo "</pre>";
 
-echo "<pre>";
-print_r($html);
-echo "</pre>";
-//echo dibujaMatrix($miTabla);
+// echo "<pre>";
+// print_r($html);
+// echo "</pre>";
+
+echo dibujaTabla($miTabla);
+echo dibujaTabla($miFibo);
