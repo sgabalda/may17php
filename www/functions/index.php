@@ -1,18 +1,29 @@
 <?php
 
 require('tablaMultiplicar.php');
-// require('dibujaMatrix.php');
+require('fibonacci.php');
+require('dibujaTabla.php');
 
 $miTabla = tablaMultiplicar(3,6);
-
 if(!is_array($miTabla))
   die("NO ARRAY");
 
-$html = dibujaTabla($miTabla);
+$miFibo = fibonacci(40);
+if(!is_array($miFibo))
+    die("NO ARRAY");
 
-echo $html;
+// $html = dibujaTabla($miTabla);
+$html = dibujaTabla($miFibo);
+
+// echo "<pre>";
+// print_r($miFibo);
+// echo "</pre>";
+
+// echo "<pre>";
+// print_r($miTabla);
+// echo "</pre>";
 
 echo "<pre>";
-print_r($miTabla);
+print_r($html);
 echo "</pre>";
 //echo dibujaMatrix($miTabla);

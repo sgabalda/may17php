@@ -1,11 +1,9 @@
 <?php
 /**
-tablaMultiplicar($filas, $columnas)
-
-int $filas
-int $columnas
-array $tabla matriz de multiplicacion
-
+ * tablaMultiplicar($filas, $columnas)
+ * int $filas
+ * int $columnas
+ * array $tabla matriz de multiplicacion
 */
 function tablaMultiplicar($filas, $columnas)
 {
@@ -22,6 +20,5 @@ function tablaMultiplicar($filas, $columnas)
         $tabla[$i][$z]=$i*$z;
     }
   }
-  return "a";
   return $tabla;
 }
