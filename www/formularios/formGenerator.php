@@ -7,6 +7,16 @@
  **/
 require('textElement.php');
 require('emailElement.php');
+require('multipleSelectElement.php');
+require('hiddenElement.php');
+require('dateElement.php');
+require('passwordElement.php');
+require('textareaElement.php');
+require('fileElement.php');
+require('checkboxElement.php');
+require('radioElement.php');
+require('selectElement.php');
+require('submitElement.php');
 
 function formGenerator($form)
 {
@@ -34,27 +44,66 @@ function formGenerator($form)
           // Contruir el campo de tipo texto
           $html.=textElement($element);
         break;
+
+        // Si es Hidden
+        case 'hidden':
+          // Contruir el campo de tipo texto
+          $html.=hiddenElement($element);
+        break;
+
         // Si es Text
         case 'email':
           // Contruir el campo de tipo texto
           $html.=emailElement($element);
         break;
 
-
-      // Si es hidden
-        // construir el campo
+        // Si es selectmultiple
+        case 'selectmultiple':
+          // Contruir el campo
+          $html.=multipleSelectElement($element);
+        break;
 
       // Si es textarea
-        // construir el campo
+      case 'textarea':
+        // Contruir el campo
+        $html.=textareaElement($element);
+      break;
       // Si es checkbox
-        // construir el campo
+      case 'checkbox':
+        // Contruir el campo
+        $html.=checkboxElement($element);
+      break;
       // Si es select
-      // Si es selectmultiple
+      case 'select':
+        // Contruir el campo
+        $html.=selectElement($element);
+      break;
 
       // Si es date
+      case 'date':
+        // Contruir el campo
+        $html.=dateElement($element);
+      break;
       // Si es password
+      case 'password':
+        // Contruir el campo
+        $html.=passwordElement($element);
+      break;
       // Si es file
+      case 'file':
+        // Contruir el campo
+        $html.=fileElement($element);
+      break;
       // Si es radio
+      case 'radio':
+        // Contruir el campo
+        $html.=radioElement($element);
+      break;
+      // Si es submit
+      case 'submit':
+        // Contruir el campo
+        $html.=submitElement($element);
+      break;
       }
     }
 

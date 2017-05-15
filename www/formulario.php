@@ -77,7 +77,7 @@
 
 			<p>
 			<label for="upload">Upload an image</label>
-			<input type="file" name="upload">
+			<input type="hidden" name="upload" value="kakaka">
 			</p>
 
 			<p>

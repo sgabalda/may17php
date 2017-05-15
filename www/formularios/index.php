@@ -4,6 +4,7 @@ require("formGenerator.php");
 
 
 $html = formGenerator("user.json");
+// $html = formGenerator("login.json");
 
 
 // echo "<pre>";

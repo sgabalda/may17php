@@ -1,7 +1,7 @@
 {
   "formName":"RegistroUsuarios",
   "method":"POST",
-  "action":"send.php",
+  "action":"../send.php",
   "elements":[
     {
       "name":"name",
@@ -139,6 +139,11 @@
         "maxsize":"300k",
         "extension":["jpg","png"]
       }
+    },
+    {
+      "name":"enviar",
+      "label":"Enviar",
+      "type":"submit"
     }
   ]
 }
