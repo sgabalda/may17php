@@ -5,6 +5,7 @@
  * json form
  * string html
  **/
+require('textElement.php');
 
 function formGenerator($form)
 {
@@ -15,15 +16,25 @@ function formGenerator($form)
   $jsonArray = json_decode($jsonForm, true);
 
 
-  echo "<pre>";
-  print_r($jsonArray);
-  echo "</pre>";
+  // echo "<pre>";
+  // print_r($jsonArray);
+  // echo "</pre>";
 
 
   // Abrir el formulario
+  $html="<form name=\"".$jsonArray['formName']."\" method=\"".$jsonArray['method']."\" action=\"".$jsonArray['action']."\">";
     // Para cada elemento del formulario
-      // Si es Text
-        // Contruir el campo de tipo texto
+    foreach($jsonArray['elements'] as $element)
+    {
+      switch($element['type'])
+      {
+        // Si es Text
+        case 'text':
+          // Contruir el campo de tipo texto
+          $html.=textElement($element);
+        break;
+
+
       // Si es hidden
         // construir el campo
 
@@ -38,10 +49,11 @@ function formGenerator($form)
       // Si es password
       // Si es file
       // Si es radio
-
+      }
+    }
 
   // Cerrar formulario
-
+  $html.="</form>";
 
 
 
