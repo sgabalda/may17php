@@ -6,6 +6,7 @@
  * string html
  **/
 require('textElement.php');
+require('emailElement.php');
 
 function formGenerator($form)
 {
@@ -33,6 +34,11 @@ function formGenerator($form)
           // Contruir el campo de tipo texto
           $html.=textElement($element);
         break;
+        // Si es Text
+        case 'email':
+          // Contruir el campo de tipo texto
+          $html.=emailElement($element);
+        break;
 
 
       // Si es hidden
@@ -44,7 +50,7 @@ function formGenerator($form)
         // construir el campo
       // Si es select
       // Si es selectmultiple
-      // Si es mail
+
       // Si es date
       // Si es password
       // Si es file
