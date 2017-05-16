@@ -16,14 +16,14 @@ foreach($users as $key => $user)
     $matriz[]=explode(',', $user);
 }
 
-
 // llamar a dibuja tabla con la matriz
-echo "<pre>";
-print_r($matriz);
-echo "</pre>";
+// echo "<pre>";
+// print_r($matriz);
+// echo "</pre>";
 
-
+echo "<a href=\"http://proyecto4.local\">Insert</a>";
 require('../vendor/cervezza/Utils/src/Utils/dibujaTabla.php');
+
 
 $html = dibujaTabla($matriz);
 
