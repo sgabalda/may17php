@@ -58,9 +58,69 @@ switch ($action)
   break;
   case 'update':
     echo "esto es update";
+    if($_POST)
+    {
+
+    }
+    else
+    {
+      $users = file_get_contents($usersFilename);
+      $users = explode("\n", $users);
+      $user = $users[$_GET['iduser']];
+      $user = explode(",",$user);
+
+      echo "<pre>";
+      print_r($user);
+      echo "</pre>";
+
+      $user['name']=$user[0];
+      $user['lastname']=$user[1];
+      $user['email']=$user[2];
+      $user['bdate']=$user[3];
+      $user['gender']=$user[4];
+      $user['transport']=$user[5];
+      $user['city']=$user[6];
+      $user['hobbies']=$user[7];
+      $user['password']=$user[8];
+      $user['iduser']=$user[9];
+      $user['description']=$user[10];
+      $user['photo']=$user[11];
+      $user['enviar']=$user[12];
+
+  echo "<pre>";
+  print_r($user);
+  echo "</pre>";
+
+      $form = "../modules/UserRegister/src/UserRegister/Model/Forms/user.json";
+
+
+      $html = formGenerator($form, $user);
+      echo $html;
+    }
   break;
   case 'delete':
     echo "esto es delete";
+    $form = "../modules/UserRegister/src/UserRegister/Model/Forms/delete.json";
+    if($_POST)
+    {
+        if($_POST['enviar']=='Si')
+        {
+          echo "borrar";
+          $users = file_get_contents($usersFilename);
+          $users = explode("\n", $users);
+          unset($users[$_POST['iduser']]);
+          $users = implode("\n", $users);
+          file_put_contents($usersFilename, $users);
+          header("Location: /userController.php?action=select");
+        }
+        else
+          header("Location: /userController.php?action=select");
+    }
+    else
+    {
+      $html = formGenerator($form, $_GET);
+      echo $html;
+    }
   break;
   default:
     echo "error 404";

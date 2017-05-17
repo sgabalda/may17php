@@ -18,10 +18,10 @@ require('radioElement.php');
 require('selectElement.php');
 require('submitElement.php');
 
-function formGenerator($form)
+function formGenerator($form, $data=array())
 {
   $html='';
-  
+
   $jsonForm = file_get_contents($form);
   $jsonArray = json_decode($jsonForm, true);
 
@@ -41,19 +41,19 @@ function formGenerator($form)
         // Si es Text
         case 'text':
           // Contruir el campo de tipo texto
-          $html.=textElement($element);
+          $html.=textElement($element, $data);
         break;
 
         // Si es Hidden
         case 'hidden':
           // Contruir el campo de tipo texto
-          $html.=hiddenElement($element);
+          $html.=hiddenElement($element, $data);
         break;
 
         // Si es Text
         case 'email':
           // Contruir el campo de tipo texto
-          $html.=emailElement($element);
+          $html.=emailElement($element, $data);
         break;
 
         // Si es selectmultiple
@@ -70,7 +70,7 @@ function formGenerator($form)
       // Si es checkbox
       case 'checkbox':
         // Contruir el campo
-        $html.=checkboxElement($element);
+        $html.=checkboxElement($element, $data);
       break;
       // Si es select
       case 'select':

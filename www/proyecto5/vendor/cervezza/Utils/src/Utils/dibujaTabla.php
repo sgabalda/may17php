@@ -44,8 +44,8 @@ function dibujaTabla($array)
           }
           $html.="<td>";
               // Para cada columna poner el valor
-              $html.="<a href=\"#\">Update</a> |";
-              $html.="<a href=\"#\">Delete</a>";              
+              $html.="<a href=\"?action=update&iduser=".$i."\">Update</a> |";
+              $html.="<a href=\"?action=delete&iduser=".$i."\">Delete</a>";
           $html.="</td>";
         $html.="</tr>";
       }
