@@ -55,7 +55,6 @@ switch ($action)
       $html = formGenerator($form);
       echo $html;
     }
-
   break;
   case 'update':
     echo "esto es update";
