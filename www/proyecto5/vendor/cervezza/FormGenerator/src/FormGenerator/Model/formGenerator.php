@@ -59,13 +59,13 @@ function formGenerator($form, $data=array())
         // Si es selectmultiple
         case 'selectmultiple':
           // Contruir el campo
-          $html.=multipleSelectElement($element);
+          $html.=multipleSelectElement($element, $data);
         break;
 
       // Si es textarea
       case 'textarea':
         // Contruir el campo
-        $html.=textareaElement($element);
+        $html.=textareaElement($element, $data);
       break;
       // Si es checkbox
       case 'checkbox':
@@ -75,13 +75,13 @@ function formGenerator($form, $data=array())
       // Si es select
       case 'select':
         // Contruir el campo
-        $html.=selectElement($element);
+        $html.=selectElement($element, $data);
       break;
 
       // Si es date
       case 'date':
         // Contruir el campo
-        $html.=dateElement($element);
+        $html.=dateElement($element, $data);
       break;
       // Si es password
       case 'password':
@@ -91,12 +91,12 @@ function formGenerator($form, $data=array())
       // Si es file
       case 'file':
         // Contruir el campo
-        $html.=fileElement($element);
+        $html.=fileElement($element, $data);
       break;
       // Si es radio
       case 'radio':
         // Contruir el campo
-        $html.=radioElement($element);
+        $html.=radioElement($element, $data);
       break;
       // Si es submit
       case 'submit':

@@ -4,6 +4,4 @@ aaaa,bbb,ccc@ccc.om,,bcn,,0,    ,,Enviar
 aaa,aaa,aaa@aaa.com,2017-05-04,w,car,mad,beer,,0,aaa ,,Enviar
 bbb,bbb,bbb@bbb.com,2017-05-04,w,car,mad,beer,,0,aaa ,,Enviar
 cccc,bbb,bbb@bbb.com,2017-05-04,w,car,mad,beer,,0,aaa ,,Enviar
-ddd,bbb,bbb@bbb.com,2017-05-04,w,car,mad,beer,,0,aaa ,,Enviar
-qqq,,,,bcn,,0,    ,,Enviar
-yyyyyy,,,,bcn,,0,    ,,Enviar
+ddd,bbb,bbb@bbb.com,2017-05-04,w,car,mad,beer,,0,aaa ,,Enviar

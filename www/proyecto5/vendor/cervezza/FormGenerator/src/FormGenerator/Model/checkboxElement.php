@@ -24,11 +24,6 @@ function checkboxElement($element, $data)
   else
   {
       $data = explode("|", $data[$element['name']]);
-
-      echo "<pre>";
-      print_r($data);
-      echo "</pre>";
-
       $html='';
       $html.="<p>
       <label for=\"".$element['name']."\">".$element['label']."</label>";
@@ -41,8 +36,6 @@ function checkboxElement($element, $data)
             $html.=">$option";
            }
         $html.="</p>";
-
-
   }
   return $html;
 }
