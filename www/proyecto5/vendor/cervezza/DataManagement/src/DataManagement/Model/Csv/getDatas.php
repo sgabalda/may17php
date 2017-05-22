@@ -5,7 +5,7 @@
  * return array datas
  */
 
-function getDatas($usersFilename)
+function GetDatas($usersFilename)
 {
   $datas = file_get_contents($usersFilename);
   $datas = explode("\n", $datas);
