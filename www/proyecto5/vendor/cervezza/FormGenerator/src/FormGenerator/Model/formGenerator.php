@@ -18,7 +18,7 @@ require('radioElement.php');
 require('selectElement.php');
 require('submitElement.php');
 
-function formGenerator($form, $data=array())
+function formGenerator($form, $data=array(), $method='', $action='')
 {
   $html='';
 
@@ -32,7 +32,18 @@ function formGenerator($form, $data=array())
 
 
   // Abrir el formulario
-  $html="<form name=\"".$jsonArray['formName']."\" method=\"".$jsonArray['method']."\" action=\"".$jsonArray['action']."\">";
+  $html="<form name=\"".$jsonArray['formName']."\" ";
+  if($method!='')
+    $html.="method=\"".$method."\"";
+  else
+    $html.="method=\"".$jsonArray['method']."\"";
+
+  if ($action!='')
+    $html.=" action=\"".$action."\"";
+  else
+    $html.=" action=\"".$jsonArray['action']."\"";
+
+  $html.=">";
     // Para cada elemento del formulario
     foreach($jsonArray['elements'] as $element)
     {

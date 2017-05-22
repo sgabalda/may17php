@@ -11,6 +11,8 @@ echo "</pre>";
 require('../vendor/cervezza/Utils/src/Utils/dibujaTabla.php');
 require('../vendor/cervezza/FormGenerator/src/FormGenerator/Model/formGenerator.php');
 
+require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/getDatas.php');
+
 
 if(isset($_GET['action']))
   $action = $_GET['action'];
@@ -22,12 +24,8 @@ $usersFilename = '../modules/UserRegister/src/UserRegister/Model/Data/users.txt'
 switch ($action)
 {
   case 'select':
-    echo "esto es select";
     echo "<a href=\"/userController.php?action=insert\">Insert</a>";
-    $users = file_get_contents($usersFilename);
-    $users = explode("\n", $users);
-    foreach($users as $key => $user)
-        $users[$key]=explode(',', $user);
+    $users = getDatas($usersFilename);
     $html = dibujaTabla($users);
     echo $html;
   break;
@@ -60,7 +58,21 @@ switch ($action)
     echo "esto es update";
     if($_POST)
     {
-
+        $users = file_get_contents($usersFilename);
+        $users = explode ("\n", $users);
+        $user=array();
+        foreach ($_POST as $key => $value)
+        {
+          if(is_array($value))
+            $user[]=implode("|", $value);
+          else
+            $user[]=$value;
+        }
+        $user = implode(",", $user);
+        $users[$_POST['iduser']]=$user;
+        $users = implode("\n",$users);
+        file_put_contents($usersFilename, $users);
+        header("Location: /userController.php?action=select");
     }
     else
     {
@@ -68,10 +80,6 @@ switch ($action)
       $users = explode("\n", $users);
       $user = $users[$_GET['iduser']];
       $user = explode(",",$user);
-
-      echo "<pre>";
-      print_r($user);
-      echo "</pre>";
 
       $user['name']=$user[0];
       $user['lastname']=$user[1];
@@ -82,19 +90,15 @@ switch ($action)
       $user['city']=$user[6];
       $user['hobbies']=$user[7];
       $user['password']=$user[8];
-      $user['iduser']=$user[9];
+      // $user['iduser']=$user[9];
+      $user['iduser']=$_GET['iduser'];
       $user['description']=$user[10];
       $user['photo']=$user[11];
       $user['enviar']=$user[12];
 
-  echo "<pre>";
-  print_r($user);
-  echo "</pre>";
-
       $form = "../modules/UserRegister/src/UserRegister/Model/Forms/user.json";
 
-
-      $html = formGenerator($form, $user);
+      $html = formGenerator($form, $user, "POST", "userController.php?action=update");
       echo $html;
     }
   break;
