@@ -15,7 +15,7 @@ function dibujaTabla($array)
   $columnasmax = sizeof($array[0]);
 
   // Crear tabla
-  $html ="<table border=1>";
+  $html ="<table class=\"table table-striped\">";
       // Crear filas
       for ($i=0;$i<$filasmax;$i++)
       {

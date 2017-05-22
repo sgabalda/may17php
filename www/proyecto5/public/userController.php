@@ -27,10 +27,12 @@ $usersFilename = '../modules/UserRegister/src/UserRegister/Model/Data/users.txt'
 switch ($action)
 {
   case 'select':
-    echo "<a href=\"/userController.php?action=insert\">Insert</a>";
     $users = GetDatas($usersFilename);
-    $html = dibujaTabla($users);
-    echo $html;
+    ob_start();
+      include_once("../modules/UserRegister/src/views/UserRegister/select.phtml");
+      $content = ob_get_contents();
+    ob_end_clean();
+
   break;
 
   case 'insert':
@@ -42,8 +44,10 @@ switch ($action)
     }
     else
     {
-      $html = formGenerator($form);
-      echo $html;
+      ob_start();
+        include_once("../modules/UserRegister/src/views/UserRegister/insert.phtml");
+        $content = ob_get_contents();
+      ob_end_clean();
     }
   break;
   case 'update':
@@ -72,8 +76,10 @@ switch ($action)
       $user['enviar']=$user[12];
 
       $form = "../modules/UserRegister/src/UserRegister/Model/Forms/user.json";
-      $html = formGenerator($form, $user, "POST", "userController.php?action=update");
-      echo $html;
+      ob_start();
+        include_once("../modules/UserRegister/src/views/UserRegister/update.phtml");
+        $content = ob_get_contents();
+      ob_end_clean();
     }
   break;
   case 'delete':
@@ -91,12 +97,18 @@ switch ($action)
     else
     {
       $user = GetData($usersFilename, $_GET['iduser']);
-      echo "Seguro que quieres borrar a:".$user[0];
-      $html = formGenerator($form, $_GET);
-      echo $html;
+      ob_start();
+        include_once("../modules/UserRegister/src/views/UserRegister/delete.phtml");
+        $content = ob_get_contents();
+      ob_end_clean();
     }
   break;
   default:
-    echo "error 404";
+    ob_start();
+      echo "error 404";
+      $content = ob_get_contents();
+    ob_end_clean();
   break;
 }
+
+include_once("../modules/UserRegister/src/views/layouts/layout.phtml");
