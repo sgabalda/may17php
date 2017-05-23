@@ -1,5 +1,15 @@
 <?php
 
+include_once('../vendor/cervezza/Utils/src/Utils/Config.php');
+
+$config = Config();
+echo "<pre>";
+print_r($config);
+echo "</pre>";
+
+die;
+
+
 include_once('../vendor/cervezza/Utils/src/Utils/Router.php');
 $route = Router($_SERVER['REQUEST_URI']);
 
@@ -27,7 +37,7 @@ switch($route['controller'])
     default:
     case 'users':
       ob_start();
-        include_once("../modules/UserRegister/src/UserRegister/Controller/UserController.php");
+        include_once("../modules/Users/src/Users/Controller/UsersController.php");
         $content = ob_get_contents();
       ob_end_clean();
     break;

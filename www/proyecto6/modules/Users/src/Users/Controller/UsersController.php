@@ -18,8 +18,6 @@ require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/SetData.
 require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/UpdateData.php');
 
 
-$usersFilename = '../modules/UserRegister/src/UserRegister/Model/Data/users.txt';
-
 switch ($route['action'])
 {
   default:

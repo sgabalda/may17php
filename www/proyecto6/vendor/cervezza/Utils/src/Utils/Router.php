@@ -27,7 +27,7 @@ echo "</pre>";
   $controllers = array('web'=>array('home'),
                        'login'=>array('login'),
                        'error'=>array('404'),
-                       'users'=>array('insert','update','delete','select'),                       
+                       'users'=>array('insert','update','delete','select'),
   );
 
   $route['module']='default';
