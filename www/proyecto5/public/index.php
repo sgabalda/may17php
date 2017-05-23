@@ -9,13 +9,13 @@ include_once('../vendor/cervezza/Utils/src/Utils/Router.php');
 
 $route = Router($_SERVER['REQUEST_URI']);
 
-
-
 echo "<pre>url: ";
 print_r($_SERVER['REQUEST_URI']);
 echo "</pre>";
 
-
+echo "<pre>";
+print_r($route);
+echo "</pre>";
 
 die("parar");
 
