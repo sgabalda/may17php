@@ -1,16 +1,9 @@
 <?php
 
 include_once('../vendor/cervezza/Utils/src/Utils/Config.php');
+include_once('../vendor/cervezza/Utils/src/Utils/Router.php');
 
 $config = Config();
-echo "<pre>";
-print_r($config);
-echo "</pre>";
-
-die;
-
-
-include_once('../vendor/cervezza/Utils/src/Utils/Router.php');
 $route = Router($_SERVER['REQUEST_URI']);
 
 switch($route['controller'])

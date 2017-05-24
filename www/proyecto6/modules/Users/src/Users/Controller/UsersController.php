@@ -17,30 +17,32 @@ require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/DeleteDa
 require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/SetData.php');
 require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/UpdateData.php');
 
+$actions = ['insert', 'select', 'update', 'delete'];
+
 
 switch ($route['action'])
 {
   default:
   case 'select':
-    $users = GetDatas($usersFilename);
+    $users = GetDatas($config['users']['usersFilename']);
     ob_start();
-      include_once("../modules/UserRegister/src/views/UserRegister/select.phtml");
+      include_once("../modules/Users/src/views/Users/select.phtml");
       $content = ob_get_contents();
     ob_end_clean();
 
   break;
 
   case 'insert':
-    $form = "../modules/UserRegister/src/UserRegister/Model/Forms/user.json";
+    $form = "../modules/Users/src/Users/Model/Forms/user.json";
     if($_POST)
     {
-      SetData($usersFilename, $_POST);
+      SetData($config['users']['usersFilename'], $_POST);
       header("Location: /users/select");
     }
     else
     {
       ob_start();
-        include_once("../modules/UserRegister/src/views/UserRegister/insert.phtml");
+        include_once("../modules/Users/src/views/Users/insert.phtml");
         $content = ob_get_contents();
       ob_end_clean();
     }
@@ -48,12 +50,12 @@ switch ($route['action'])
   case 'update':
     if($_POST)
     {
-        UpdateData($usersFilename, $_POST, $_POST['iduser']);
+        UpdateData($config['users']['usersFilename'], $_POST, $_POST['iduser']);
         header("Location: /users/select");
     }
     else
     {
-      $user = GetData($usersFilename, $route['params']['iduser']);
+      $user = GetData($config['users']['usersFilename'], $route['params']['iduser']);
 
       $user['name']=$user[0];
       $user['lastname']=$user[1];
@@ -70,20 +72,20 @@ switch ($route['action'])
       $user['photo']=$user[11];
       $user['enviar']=$user[12];
 
-      $form = "../modules/UserRegister/src/UserRegister/Model/Forms/user.json";
+      $form = "../modules/Users/src/Users/Model/Forms/user.json";
       ob_start();
-        include_once("../modules/UserRegister/src/views/UserRegister/update.phtml");
+        include_once("../modules/Users/src/views/Users/update.phtml");
         $content = ob_get_contents();
       ob_end_clean();
     }
   break;
   case 'delete':
-    $form = "../modules/UserRegister/src/UserRegister/Model/Forms/delete.json";
+    $form = "../modules/Users/src/Users/Model/Forms/delete.json";
     if($_POST)
     {
         if($_POST['enviar']=='Si')
         {
-          DeleteData($usersFilename,$_POST['iduser']);
+          DeleteData($config['users']['usersFilename'],$_POST['iduser']);
           header("Location: /users/select");
         }
         else
@@ -91,9 +93,9 @@ switch ($route['action'])
     }
     else
     {
-      $user = GetData($usersFilename, $route['params']['iduser']);
+      $user = GetData($config['users']['usersFilename'], $route['params']['iduser']);
       ob_start();
-        include_once("../modules/UserRegister/src/views/UserRegister/delete.phtml");
+        include_once("../modules/Users/src/views/Users/delete.phtml");
         $content = ob_get_contents();
       ob_end_clean();
     }
@@ -101,4 +103,4 @@ switch ($route['action'])
 
 }
 
-include_once("../modules/UserRegister/src/views/layouts/layout.phtml");
+include_once("../modules/Users/src/views/layouts/layout.phtml");
