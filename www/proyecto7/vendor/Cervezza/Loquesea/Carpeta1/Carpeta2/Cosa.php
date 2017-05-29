@@ -1,5 +1,5 @@
 <?php
-namespace Cosa;
+namespace Cervezza\Loquesea\Carpeta1\Carpeta2;
 
 class Cosa
 {
