@@ -1,7 +1,10 @@
 <?php
+namespace Error\Controller\ErrorController;
 
 class ErrorController
 {
+  public $layout = "../modules/Error/src/views/layouts/error_layout.phtml";
+
   public function _404Action()
   {
     ob_start();
@@ -11,6 +14,3 @@ class ErrorController
     return $content;
   }
 }
-
-
-include_once("../modules/Error/src/views/layouts/error_layout.phtml");

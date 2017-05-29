@@ -1,16 +1,29 @@
 <?php
 
-include_once('../vendor/cervezza/Utils/src/Utils/Config.php');
-include_once('../vendor/cervezza/Utils/src/Utils/Router.php');
-include_once('../vendor/cervezza/Utils/src/Utils/Dispatch.php');
-include_once('../vendor/cervezza/Utils/src/Utils/Twosteps.php');
+include_once('../vendor/cervezza/Utils/src/Utils/FrontControllerView.php');
 
-$config = Config();
-$route = Router($_SERVER['REQUEST_URI']);
-$content = Dispatch($route, $config);
-$content = Twosteps($content['layout'], $content['view']);
+// $config = FrontControllerView::Config();
+// $route = FrontControllerView::Router($_SERVER['REQUEST_URI']);
+// $content = FrontControllerView::Dispatch($route, $config);
+// $content = FrontControllerView::Twosteps($content['layout'], $content['view'], $config);
 
-echo $content;
+
+
+
+function __autoload($class)
+{
+  echo "<pre>";
+  print_r($class);
+  echo "</pre>";
+
+  echo "<pre>";
+  print_r(get_class_methods($class));
+  echo "</pre>";
+
+  die("----------");
+}
+
+// echo $content;
 
 
 // echo "On maintenance";
