@@ -1,4 +1,5 @@
 <?php
+namespace Cervezza\Utils;
 
 class FrontControllerView
 {
@@ -26,16 +27,11 @@ class FrontControllerView
     $route = array();
     $url = explode("/", $url);
 
-    // echo "<pre>";
+    // echo "<pre>url: ";
     // print_r($url);
     // echo "</pre>";
 
-    // TODO: resolver cuando tengas mas tecnologia disponible
-    $controllers = array('web'=>array('home'),
-                         'login'=>array('login'),
-                         'error'=>array('404'),
-                         'users'=>array('insert','update','delete','select'),
-    );
+
 
     $route['module']='index';
     $route['controller']='index';
@@ -73,10 +69,44 @@ class FrontControllerView
       $error=1;
     }
 
-    if(@$url[2]!='' && $error!=1 && isset($url[3]) && in_array($url[3], $controllers[$url[2]]))
+    // echo "<pre>sroute:";
+    // print_r($route);
+    // echo "</pre>";
+
+    $actions = get_class_methods("Users\Controller\UsersController");
+
+    
+
+    // echo "<pre>actions:";
+    // print_r($actions);
+    // echo "</pre>";
+
+    foreach ($actions as $key=>$action)
+    {
+      $pos = strpos($action, 'Action');
+      if($pos===FALSE)
+        unset($actions[$key]);
+    }
+    // echo "<pre>actions:";
+    // print_r($actions);
+    // echo "</pre>";
+
+    // TODO: resolver cuando tengas mas tecnologia disponible
+    $controllers = array('web'=>array('home'),
+                         'login'=>array('login'),
+                         'error'=>array('_404'),
+                         'users'=>array('insert','update','delete','select'),
+                         'index'=>array('index','update','delete','select'),
+    );
+
+    //if(@$url[2]!='' && $error!=1 && isset($url[3]) && in_array($url[3], $controllers[$url[2]]))
+
+    if(@$url[2]!='' && $error!=1 && isset($url[3]) &&
+        in_array($route['action']."Action", $actions))
+
     {
       $route['controller']=$url[2];
-      $route['action']=$url[3];
+      $route['action']=$url[3]."Action";
     }
     elseif(!isset($url[3]))
     {
@@ -91,7 +121,7 @@ class FrontControllerView
     if($error!=1 && (sizeof($url)%2)==0 && $url[sizeof($url)-1]!='')
     {
       $route['controller']=$url[2];
-      $route['action']=$url[3];
+      $route['action']=$url[3]."Action";
       for($i=4;$i<sizeof($url);$i+=2)
         $route['params'][$url[$i]]=$url[$i+1];
     }
@@ -104,7 +134,7 @@ class FrontControllerView
     {
       $route['module']='error';
       $route['controller']='error';
-      $route['action']='404';
+      $route['action']='_404Action';
       $route['params']=array();
     }
 
@@ -124,6 +154,9 @@ class FrontControllerView
 
   static public function Dispatch($route, $config)
   {
+    // echo "<pre>";
+    // print_r($route);
+    // echo "</pre>";
     $includeController = '../modules/'.ucfirst($route['module']).
                  '/src/'.ucfirst($route['module']).
                  '/Controller/'.
@@ -132,10 +165,11 @@ class FrontControllerView
 
     include_once($includeController);
 
-    $controllerName = ucfirst($route['module'])."\\".ucfirst($route['controller'])."\\".ucfirst($route['controller'])."Controller";
-    $actionName = $route['action']."Action";
+    $controllerName = ucfirst($route['controller'])."\\Controller\\".
+                      ucfirst($route['controller'])."Controller";
+    $actionName = $route['action'];
 
-    echo "controllerName: ". $controllerName;
+    // echo "controllerName: ". $controllerName;
     // echo $actionName;
 
     $controller = new $controllerName();

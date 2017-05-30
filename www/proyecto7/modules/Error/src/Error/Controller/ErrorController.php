@@ -1,5 +1,5 @@
 <?php
-namespace Error\Controller\ErrorController;
+namespace Error\Controller;
 
 class ErrorController
 {

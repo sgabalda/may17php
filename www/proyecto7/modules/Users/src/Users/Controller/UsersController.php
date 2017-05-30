@@ -1,25 +1,33 @@
 <?php
-namespace Users\Controller\UsersController;
+namespace Users\Controller;
+
+use Cervezza\DataManagement\Model\DataManagementCsv;
 
 class UsersController
 {
   public $layout = "../modules/Users/src/views/layouts/layout.phtml";
 
+
+  public function indexAction($config)
+  {
+    header("Location: /users/users/select");
+  }
+
   public function selectAction($config)
   {
 
-    require('../vendor/cervezza/Utils/src/Utils/dibujaTabla.php');
-    require('../vendor/cervezza/FormGenerator/src/FormGenerator/Model/formGenerator.php');
+    // require('../vendor/cervezza/Utils/src/Utils/dibujaTabla.php');
+    // require('../vendor/cervezza/FormGenerator/src/FormGenerator/Model/formGenerator.php');
+    //
+    // require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/GetDatas.php');
+    // require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/GetData.php');
+    // require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/DeleteData.php');
+    // require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/SetData.php');
+    // require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/UpdateData.php');
 
-    require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/GetDatas.php');
-    require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/GetData.php');
-    require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/DeleteData.php');
-    require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/SetData.php');
-    require('../vendor/cervezza/DataManagement/src/DataManagement/Model/Csv/UpdateData.php');
 
 
-
-    $users = GetDatas($config['users']['usersFilename']);
+    $users = DataManagementCsv::GetDatas($config['users']['usersFilename']);
     ob_start();
       include_once("../modules/Users/src/views/Users/select.phtml");
       $content = ob_get_contents();
