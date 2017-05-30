@@ -1,7 +1,7 @@
 {
   "formName":"RegistroUsuarios",
   "method":"POST",
-  "action":"/users/insert",
+  "action":"/users/users/insert",
   "elements":[
     {
       "name":"name",

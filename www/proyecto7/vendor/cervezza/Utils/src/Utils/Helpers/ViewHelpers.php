@@ -3,6 +3,19 @@ namespace Cervezza\Utils\Helpers;
 
 class ViewHelpers
 {
+  static public function RenderView($router, $data)
+  {
+
+    $action = substr($router['action'],0,-6);
+    ob_start();
+      include_once("../modules/".$router['module']."/src/views/".
+                                 $router['controller']."/".
+                                 $action.".phtml");
+      $content = ob_get_contents();
+    ob_end_clean();
+    return $content;
+  }
+
   static public function DibujaTabla($array)
   {
     // Determinar el inicio y fin de filas
@@ -41,8 +54,8 @@ class ViewHelpers
             }
             $html.="<td>";
                 // Para cada columna poner el valor
-                $html.="<a href=\"/users/update/iduser/".$i."\">Update</a> |";
-                $html.="<a href=\"/users/delete/iduser/".$i."\">Delete</a>";
+                $html.="<a href=\"/users/users/update/iduser/".$i."\">Update</a> |";
+                $html.="<a href=\"/users/users/delete/iduser/".$i."\">Delete</a>";
             $html.="</td>";
           $html.="</tr>";
         }

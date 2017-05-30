@@ -1,7 +1,7 @@
 {
   "formName":"DeleteUsers",
   "method":"POST",
-  "action":"/users/delete",
+  "action":"/users/users/delete",
   "elements":[
     {
       "name":"iduser",

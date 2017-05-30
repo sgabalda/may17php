@@ -1,6 +1,8 @@
 <?php
 namespace Cervezza\Utils;
 
+use Cervezza\Utils\Interfaces\Routeable;
+
 class FrontControllerView
 {
   static public function Config()
@@ -75,7 +77,7 @@ class FrontControllerView
 
     $actions = get_class_methods("Users\Controller\UsersController");
 
-    
+
 
     // echo "<pre>actions:";
     // print_r($actions);
@@ -172,7 +174,11 @@ class FrontControllerView
     // echo "controllerName: ". $controllerName;
     // echo $actionName;
 
-    $controller = new $controllerName();
+    $controller = new $controllerName($route);
+
+    if($controller instanceof Routeable)
+      $controller->setRouter($route);
+  
     $view = $controller->$actionName($config);
     $layout = $controller->layout;
 
