@@ -18,6 +18,13 @@ class ViewHelpers
 
   static public function DibujaTabla($array)
   {
+
+
+    // echo "<pre>";
+    // print_r($array);
+    // echo "</pre>";
+
+
     // Determinar el inicio y fin de filas
     $filasmax = sizeof($array);
 
@@ -26,37 +33,20 @@ class ViewHelpers
 
     // Crear tabla
     $html ="<table class=\"table table-striped\">";
-        // Crear filas
-        for ($i=0;$i<$filasmax;$i++)
+        foreach ($array as $key => $value)
         {
           $html.="<tr>";
-            // Verificacion de si el array es unidimensional
-            if(!is_array($array[0]))
-            {
-              $html.="<td>";
-                  // Poner el valor
-                  $html.=$array[$i];
-              $html.="</td>";
-            }
-            else
-            {
-              // Crear columnas
-              for($j=0;$j<$columnasmax;$j++)
-              {
-                if(isset($array[$i][$j]))
-                {
-                  $html.="<td>";
-                      // Para cada columna poner el valor
-                      $html.=$array[$i][$j];
-                  $html.="</td>";
-                }
-              }
-            }
+          foreach ($value as $key2 => $value2)
+          {
             $html.="<td>";
-                // Para cada columna poner el valor
-                $html.="<a href=\"/users/users/update/iduser/".$i."\">Update</a> |";
-                $html.="<a href=\"/users/users/delete/iduser/".$i."\">Delete</a>";
+                $html.=$value2;
             $html.="</td>";
+          }
+          $html.="<td>";
+              // Para cada columna poner el valor
+              $html.="<a href=\"/users/users/update/iduser/".$key."\">Update</a> |";
+              $html.="<a href=\"/users/users/delete/iduser/".$key."\">Delete</a>";
+          $html.="</td>";
           $html.="</tr>";
         }
     $html.="</table>";
