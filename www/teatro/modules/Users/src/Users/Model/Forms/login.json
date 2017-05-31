@@ -1,0 +1,37 @@
+{
+  "formName":"LoginUsers",
+  "method":"POST",
+  "action":"send.php",
+  "elements":[
+
+
+    {
+      "name":"email",
+      "label":"Correo Electrónico",
+      "type":"email",
+      "validations":{
+        "required":true,
+        "type":"email"
+      },
+      "filters":{
+        "striptag":true
+      }
+    },
+    {
+      "name":"password",
+      "label":"Contraseña",
+      "type":"password",
+      "validations":{
+        "required":true,
+        "format":"2m-2M-2!-2#",
+        "maxlen":30,
+        "minlen":8
+      }
+    },
+    {
+      "name":"enviar",
+      "label":"Enviar",
+      "type":"submit"
+    }
+  ]
+}
