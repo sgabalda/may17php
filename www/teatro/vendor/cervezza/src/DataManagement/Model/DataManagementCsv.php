@@ -22,39 +22,24 @@ class DataManagementCsv
 
     return $user;
   }
-  static public function GetDatas($usersFilename)
+
+  static function createJson($datas)
   {
-
-
-
-
-    $datas = file_get_contents($usersFilename);
-    $datas = explode("\n", $datas);
+    $columnNames = explode(",",$datas[0]);
     foreach($datas as $key => $data)
     {
-        $usert[$key]=explode(',', $data);
-
-        $user[$key]['name']=@$usert[$key][0];
-        $user[$key]['lastname']=@$usert[$key][1];
-        $user[$key]['email']=@$usert[$key][2];
-        $user[$key]['bdate']=@$usert[$key][3];
-        $user[$key]['gender']=@$usert[$key][4];
-        $user[$key]['transport']=@$usert[$key][5];
-        $user[$key]['city']=@$usert[$key][6];
-        $user[$key]['hobbies']=@$usert[$key][7];
-        $user[$key]['password']=@$usert[$key][8];
-        // $user['iduser']=$user[9];
-        // $user[$key]['iduser']=$this->router['params']['iduser'];
-        $user[$key]['description']=@$usert[$key][10];
-        $user[$key]['photo']=@$usert[$key][11];
-        $user[$key]['enviar']=@$usert[$key][12];
-
+      $usert[$key]=explode(',', $data);
+        foreach($columnNames as $key2 => $data2)
+          $user[$key][$data2]=@$usert[$key][$key2];
     }
+    return $user;
+  }
 
-    // echo "<pre>";
-    // print_r($user);
-    // echo "</pre>";
-    // die;
+  static public function GetDatas($usersFilename)
+  {
+    $datas = file_get_contents($usersFilename);
+    $datas = explode("\n", $datas);
+    $user = self::createJson($datas);
     return $user;
   }
   static public function SetData($usersFilename, $data)

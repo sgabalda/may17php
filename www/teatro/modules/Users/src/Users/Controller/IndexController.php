@@ -3,12 +3,12 @@ namespace Users\Controller;
 
 class IndexController
 {
-  public $layout = "";
+  public $layout = "../modules/Users/src/views/layouts/simple_layout.phtml";
 
   public function indexAction()
   {
     $data=[];
-    $content = "Hello Module";
+    $content = __CLASS__;
     return array($content,$content);;
   }
 }
