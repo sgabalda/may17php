@@ -1,0 +1,5 @@
+rolname,idrol,enviar
+Rol A,1,Enviar
+Rol B,2,Enviar
+Rol C,3,Enviar
+Rol D,4,Enviar

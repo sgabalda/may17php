@@ -1,0 +1,36 @@
+{
+  "formName":"Roles",
+  "method":"POST",
+  "action":"/roles/index/insert",
+  "elements":[
+    {
+      "name":"rolname",
+      "label":"Rol Nombre",
+      "type":"text",
+      "validations":{
+        "required":false
+      },
+      "filters":{
+        "maxlen":30,
+        "minlen":10,
+        "striptag":true,
+        "stripspace":true,
+        "format":"#[A-z]1[ ]#[A-z]"
+      }
+    },
+    {
+      "name":"idrol",
+      "type":"hidden",
+      "validations":{
+        "required":true,
+        "integer":true
+      },
+      "default":0
+    },
+    {
+      "name":"enviar",
+      "label":"Enviar",
+      "type":"submit"
+    }
+  ]
+}

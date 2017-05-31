@@ -1,0 +1,23 @@
+{
+  "formName":"DeleteUsers",
+  "method":"POST",
+  "action":"/users/users/delete",
+  "elements":[
+    {
+      "name":"idrol",
+      "label":"idrol",
+      "default":99,
+      "type":"hidden"
+    },
+    {
+      "name":"enviar",
+      "label":"Si",
+      "type":"submit"
+    },
+    {
+      "name":"enviar",
+      "label":"No",
+      "type":"submit"
+    }
+  ]
+}

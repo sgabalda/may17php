@@ -16,7 +16,7 @@ class ViewHelpers
     return $content;
   }
 
-  static public function DibujaTabla($array)
+  static public function DibujaTabla($array, $links=array())
   {
 
 
@@ -42,11 +42,27 @@ class ViewHelpers
                 $html.=$value2;
             $html.="</td>";
           }
-          $html.="<td>";
-              // Para cada columna poner el valor
-              $html.="<a href=\"/users/users/update/iduser/".$key."\">Update</a> |";
-              $html.="<a href=\"/users/users/delete/iduser/".$key."\">Delete</a>";
-          $html.="</td>";
+
+
+          if(sizeof($links)!=0)
+          {
+            $html.="<td>";
+                // Para cada columna poner el valor
+                $html.="<a href=\"".$links[0].$key."\">Update</a> |";
+                $html.="<a href=\"".$links[1].$key."\">Delete</a>";
+            $html.="</td>";
+          }
+          else {
+            $html.="<td>";
+                // Para cada columna poner el valor
+                $html.="<a href=\"/users/users/update/iduser/".$key."\">Update</a> |";
+                $html.="<a href=\"/users/users/delete/iduser/".$key."\">Delete</a>";
+            $html.="</td>";
+          }
+
+
+
+
           $html.="</tr>";
         }
     $html.="</table>";
