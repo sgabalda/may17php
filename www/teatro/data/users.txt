@@ -1,9 +1,5 @@
 name,lastname,email,bdate,gender,transport,city,hobbies,password,iduser,description,photo,enviar
 AGUSTIN,CALDERON,agustincl@gmail.com,2017-12-31,o,car|motorbike,bcn,beer|sports,,0,asdasd    ,,Enviar
-yyyyyyy435,CALDERON,agustincl@gmail.com,2017-12-31,o,car|motorbike,bcn,beer|sports,,1,asdasd    ,,Enviar
 aaa,aaa,aaa@aaa.com,2017-05-04,w,car,mad,beer,,0,aaa ,,Enviar
 bbb,bbb,bbb@bbb.com,2017-05-04,w,car,mad,beer,,0,aaa ,,Enviar
 cccc657655558,bbb,bbb@bbb.com,2017-05-04,w,car,mad,beer,,4,aaa ,,Enviar
-fdggfdfdg,fdgdfgfdg,,,bcn,,0,      ,,Enviar
-dsf,Enviar
-ROLNAME,Enviar

@@ -2,7 +2,6 @@
 namespace Users\Controller;
 
 use Cervezza\DataManagement\Model\DataManagementCsv;
-use Cervezza\DataManagement\Model\DataManagementDB;
 use Cervezza\Utils\Helpers\ViewHelpers;
 
 
@@ -51,7 +50,20 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
     {
       $user = DataManagementCsv::GetData($config['users']['usersFilename'], $this->router['params']['iduser']);
 
+      $user['name']=$user[0];
+      $user['lastname']=$user[1];
+      $user['email']=$user[2];
+      $user['bdate']=$user[3];
+      $user['gender']=$user[4];
+      $user['transport']=$user[5];
+      $user['city']=$user[6];
+      $user['hobbies']=$user[7];
+      $user['password']=$user[8];
+      // $user['iduser']=$user[9];
       $user['iduser']=$this->router['params']['iduser'];
+      $user['description']=$user[10];
+      $user['photo']=$user[11];
+      $user['enviar']=$user[12];
 
       $data=[];
       $data['user']=$user;
