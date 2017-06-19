@@ -28,8 +28,30 @@ CREATE TABLE IF NOT EXISTS TRANSPORT(
 CREATE TABLE IF NOT EXISTS USERS_TRANSPORT(
 	user_id int NOT NULL,
 	transport_id int not null,
-	FOREIGN KEY (user_id) REFERENCES USERS(user_id),
-	FOREIGN KEY (transport_id) REFERENCES TRANSPORT(transport_id)
+	FOREIGN KEY (user_id) REFERENCES USERS(user_id) ON DELETE CASCADE,
+	FOREIGN KEY (transport_id) REFERENCES TRANSPORT(transport_id) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS HOBBIES(
+	hobby_id int not null,
+	name varchar(255),
+	PRIMARY KEY (hobby_id)
+);
 
+CREATE TABLE IF NOT EXISTS USERS_HOBBIES(
+	user_id int not null,
+	hobby_id int not null,
+	FOREIGN KEY (user_id) REFERENCES USERS(user_id) ON DELETE CASCADE,
+	FOREIGN KEY (hobby_id) REFERENCES HOBBIES(hobby_id) ON DELETE CASCADE
+);
+
+INSERT INTO TRANSPORT (name) values ('car'),('motorbike'),('bike');
+INSERT INTO HOBBIES (name) values ('beer'),('sports'),('ioga');
+
+INSERT INTO USERS (name, lastname, email, bdate, role)
+values ('sergi', 'gabalda', 'sergigabol 2gmail.com',
+	'1982-11-21', 1
+);
+
+INSERT INTO USERS_TRANSPORT (user_id,transport_id)
+values (1,1),(1,3);
