@@ -18,7 +18,7 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
   public function selectAction($config)
   {
     $data=[];
-    $data['users'] = DataManagementCsv::GetDatas($config['users']['usersFilename']);
+    $data['users'] = DataManagementDB::GetDatas($config);
     $content = ViewHelpers::RenderView($this->router, $data);
     return array($data,$content);
   }
@@ -49,7 +49,7 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
     }
     else
     {
-      $user = DataManagementCsv::GetData($config['users']['usersFilename'], $this->router['params']['iduser']);
+      $user = DataManagementDB::GetData($config, $this->router['params']['iduser']);
 
       $user['iduser']=$this->router['params']['iduser'];
 
@@ -68,7 +68,7 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
     {
         if($_POST['enviar']=='Si')
         {
-          DataManagementCsv::DeleteData($config['users']['usersFilename'],$_POST['iduser']);
+          DataManagementDB::DeleteData($config,$_POST['iduser']);
           header("Location: /users/users/select");
         }
         else
@@ -77,7 +77,7 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
     else
     {
       $data=[];
-      $data['users']=  DataManagementCsv::GetData($config['users']['usersFilename'], $this->router['params']['iduser']);
+      $data['users']=DataManagementDB::GetData($config, $this->router['params']['iduser']);
       $data['form']=$form;
       $data['params']=$this->router['params'];
       $content = ViewHelpers::RenderView($this->router, $data);

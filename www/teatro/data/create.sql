@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS USERS_TRANSPORT(
 );
 
 CREATE TABLE IF NOT EXISTS HOBBIES(
-	hobby_id int not null,
+	hobby_id int not null auto_increment,
 	name varchar(255),
 	PRIMARY KEY (hobby_id)
 );
@@ -49,9 +49,31 @@ INSERT INTO TRANSPORT (name) values ('car'),('motorbike'),('bike');
 INSERT INTO HOBBIES (name) values ('beer'),('sports'),('ioga');
 
 INSERT INTO USERS (name, lastname, email, bdate, role)
-values ('sergi', 'gabalda', 'sergigabol 2gmail.com',
+values ('sergi', 'gabalda', 'sergigabol@gmail.com',
 	'1982-11-21', 1
 );
-
 INSERT INTO USERS_TRANSPORT (user_id,transport_id)
 values (1,1),(1,3);
+
+INSERT INTO USERS (name, lastname, email, bdate, role)
+values ('fulano', 'de tal', 'prueba@prueba.com',
+	'1981-11-21', 2
+);
+INSERT INTO USERS_TRANSPORT (user_id,transport_id)
+values (2,1);
+INSERT INTO USERS_HOBBIES (user_id,hobby_id)
+values (2,1),(2,2);
+
+INSERT INTO USERS (name, lastname, email, bdate, role)
+values ('Mengano', 'de cual', 'prueba2@prueba2.com',
+	'1980-11-21', 2
+);
+INSERT INTO USERS_TRANSPORT (user_id,transport_id)
+values (3,3);
+INSERT INTO USERS_HOBBIES (user_id,hobby_id)
+values (2,1),(2,3);
+
+INSERT INTO USERS (name, lastname, email, bdate, role)
+values ('Mengano2', 'de cual', 'prueba2@prueba2.com',
+	'1998-11-21', 2
+);
