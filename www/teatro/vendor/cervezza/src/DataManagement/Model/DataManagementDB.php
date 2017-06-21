@@ -82,7 +82,7 @@ class DataManagementDB
 
     return $user;
   }
-  static public function SetData($usersFilename, $data)
+  static public function SetData($config, $data)
   {
 
     $conn=DatabasePdoConnection::getInstance($config)->getConnection();
@@ -102,25 +102,33 @@ class DataManagementDB
 
       //guarda el id del usuario, que se genero con el auto increment
       $id=$conn->lastInsertId();
-
+      $transports=self::getTransports($config);
       foreach ($data['transport'] as $value) {
         $stmt=$conn->prepare("INSERT INTO USERS_TRANSPORT ".
         "(user_id,transport_id) values (:id,:transport_id)");
-
+        $stmt->bindParam(":id",$id);
+        $stmt->bindParam(":transport_id",array_search($value,$transports));
+        $stmt->execute();
       }
 
       //aplicarlas a la base de datos
       $conn->commit();
     }catch(\Exception $e){
       $conn->rollBack();
+      throw $e;
     }
 
 
     return $data;
   }
 
-  static private function getTransports(){
-    
+  static private function getTransports($config){
+    $sql="SELECT transport_id, name FROM TRANSPORT";
+    $query=DatabasePdoConnection::getInstance($config)->getConnection()->query($sql);
+    foreach ( $query as $row) {
+      $result[$row['transport_id']]=$row['name'];
+    }
+    return $result;
   }
 
   static public function UpdateData($usersFilename, $data, $id)

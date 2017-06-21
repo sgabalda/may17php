@@ -5,6 +5,8 @@ use Cervezza\DataManagement\Model\DataManagementCsv;
 use Cervezza\DataManagement\Model\DataManagementDB;
 use Cervezza\Utils\Helpers\ViewHelpers;
 
+use Users\Model\DataMapping\User;
+
 
 class UsersController extends \Cervezza\Utils\Abstracts\Routeable
 {
@@ -30,8 +32,9 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
 
     if($_POST)
     {
-      DataManagementCsv::SetData($config['users']['usersFilename'], $_POST);
-      header("Location: /users/users/select");
+        //validate form input and filter data
+      DataManagementDB::SetData($config, $_POST);
+      //header("Location: /users/users/select");
     }
     else
     {
@@ -42,15 +45,27 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
 
   public function updateAction($config)
   {
+
+
+
     if($_POST)
     {
-        DataManagementCsv::UpdateData($config['users']['usersFilename'], $_POST, $_POST['iduser']);
-        header("Location: /users/users/select");
+      $userOb=new User();
+      $userOb->load($_POST['iduser']);
+
+      $userOb->name=$_POST["name"];
+
+      $userOb->save();
+        //DataManagementCsv::UpdateData($config['users']['usersFilename'], $_POST, $_POST['iduser']);
+      header("Location: /users/users/select");
     }
     else
     {
-      $user = DataManagementDB::GetData($config, $this->router['params']['iduser']);
+      //$user = DataManagementDB::GetData($config, $this->router['params']['iduser']);
+      $userOb=new User();
+      $userOb->load($this->router['params']['iduser']);
 
+      $user=$userOb->toArray();
       $user['iduser']=$this->router['params']['iduser'];
 
       $data=[];
