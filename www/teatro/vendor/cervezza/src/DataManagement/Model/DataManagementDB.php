@@ -54,7 +54,7 @@ class DataManagementDB
     $stmt->bindParam(":id",$id);
     $stmt->execute();
     $transports=$stmt->fetchAll(\PDO::FETCH_COLUMN);
-    $user["transport"]=$transports;
+    $user["transport"]=implode("|",$transports);
 
     return $user;
   }
@@ -85,8 +85,44 @@ class DataManagementDB
   static public function SetData($usersFilename, $data)
   {
 
+    $conn=DatabasePdoConnection::getInstance($config)->getConnection();
+
+    $conn->beginTransaction();
+    try{
+      //hacer las queries que haga falta
+      $stmt=$conn->prepare("INSERT INTO USERS ".
+      "(name,lastname,email,bdate) values ".
+      "(:name, :lastname, :email, :bdate)");
+
+      $stmt->bindParam(":name",$data["name"]);
+      $stmt->bindParam(":lastname",$data["lastname"]);
+      $stmt->bindParam(":email",$data["email"]);
+      $stmt->bindParam(":bdate",$data["bdate"]);
+      $stmt->execute();
+
+      //guarda el id del usuario, que se genero con el auto increment
+      $id=$conn->lastInsertId();
+
+      foreach ($data['transport'] as $value) {
+        $stmt=$conn->prepare("INSERT INTO USERS_TRANSPORT ".
+        "(user_id,transport_id) values (:id,:transport_id)");
+
+      }
+
+      //aplicarlas a la base de datos
+      $conn->commit();
+    }catch(\Exception $e){
+      $conn->rollBack();
+    }
+
+
     return $data;
   }
+
+  static private function getTransports(){
+    
+  }
+
   static public function UpdateData($usersFilename, $data, $id)
   {
 
