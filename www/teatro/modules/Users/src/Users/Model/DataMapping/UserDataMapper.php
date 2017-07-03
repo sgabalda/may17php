@@ -34,7 +34,15 @@ class UserDataMapper{
     $user->email=$values[0]['email'];
     $user->bdate=$values[0]['bdate'];
 
-    //TODO cargar los trasnportes
+    $stmt=$this->connection->prepare(
+      "SELECT NAME FROM TRANSPORT INNER JOIN USERS_TRANSPORT ".
+      "ON USERS_TRANSPORT.user_id=:id ".
+      "AND USERS_TRANSPORT.transport_id=TRANSPORT.transport_id"
+    );
+    $stmt->bindParam(":id",$id);
+    $stmt->execute();
+    $transports=$stmt->fetchAll(\PDO::FETCH_COLUMN);
+    $user->transport=implode("|",$transports);
 
   }
 
@@ -69,6 +77,11 @@ class UserDataMapper{
         $id=$this->connection->lastInsertId();
         $user->id=$id;
       }
+
+      $stmt=$this->connection->prepare("DELETE FROM USERS_TRANSPORT WHERE user_id=:id");
+      $stmt->bindParam(":id",$id);
+      $stmt->execute();
+
       $transports=self::getTransports();
       if($user->transport){
         foreach ($user->transport as $value) {

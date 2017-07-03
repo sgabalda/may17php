@@ -41,6 +41,14 @@ class User{
     return get_object_vars($this);
   }
 
+  public function fromArray($arr){
+    $this->name=$arr["name"];
+    $this->lastname=$arr["lastname"];
+    $this->email=$arr["email"];
+    $this->bdate=$arr["bdate"];
+    $this->transport=$arr["transport"];
+  }
+
 }
 
  ?>

@@ -12,6 +12,26 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
 {
   public $layout = "../modules/Users/src/views/layouts/layout.phtml";
 
+  private function getNumVisits(){
+    if(isset($_COOKIE["numvisits"])){
+      //$_COOKIE["numvisits"]=$_COOKIE["numvisits"]+1;
+      $numvisits=$_COOKIE["numvisits"]+1;
+    }else{
+      $numvisits=1;
+    }
+    echo session_save_path();
+    setcookie('numvisits',$numvisits,time()+2*24*60*60,"/");
+
+    session_start();
+    if(isset($_SESSION['numvisits_session'])){
+      $_SESSION['numvisits_session']=$_SESSION['numvisits_session']+1;
+    }else{
+      $_SESSION['numvisits_session']=1;
+    }
+
+    return $numvisits;
+  }
+
   public function indexAction($config)
   {
     header("Location: /users/users/select");
@@ -21,6 +41,8 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
   {
     $data=[];
     $data['users'] = DataManagementDB::GetDatas($config);
+    $data["numvisits"]=$this->getNumVisits();
+    $data["numvisits_session"]=$_SESSION['numvisits_session'];
     $content = ViewHelpers::RenderView($this->router, $data);
     return array($data,$content);
   }
@@ -46,14 +68,13 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
   public function updateAction($config)
   {
 
-
-
     if($_POST)
     {
       $userOb=new User();
       $userOb->load($_POST['iduser']);
 
-      $userOb->name=$_POST["name"];
+      //TODO filter and validate input
+      $userOb->fromArray($_POST);
 
       $userOb->save();
         //DataManagementCsv::UpdateData($config['users']['usersFilename'], $_POST, $_POST['iduser']);
