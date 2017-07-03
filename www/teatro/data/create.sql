@@ -77,3 +77,5 @@ INSERT INTO USERS (name, lastname, email, bdate, role)
 values ('Mengano2', 'de cual', 'prueba2@prueba2.com',
 	'1998-11-21', 2
 );
+
+ALTER TABLE USERS ADD passwd varchar(255);

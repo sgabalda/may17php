@@ -10,6 +10,7 @@ class User{
   private $email;
   private $bdate;
   private $transport;
+  private $password;
 
   private $userDataMapper;
 
@@ -33,6 +34,10 @@ class User{
     $this->userDataMapper->load($this,$id);
   }
 
+  public function loadFromEmailAndPassw($email){
+    $this->userDataMapper->loadFromEmailAndPassw($this,$email);
+  }
+
   public function save(){
     $this->userDataMapper->save($this);
   }
@@ -47,6 +52,7 @@ class User{
     $this->email=$arr["email"];
     $this->bdate=$arr["bdate"];
     $this->transport=$arr["transport"];
+    $this->password=$arr["password"];
   }
 
 }

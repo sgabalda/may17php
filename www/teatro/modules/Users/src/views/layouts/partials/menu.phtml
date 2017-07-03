@@ -1,4 +1,14 @@
+<?php
+use Cervezza\Utils\LoginValidator;
+ ?>
   <ul class="nav nav-sidebar">
 
   <li><a href="/users/insert">Insert Users</a></li>
+  <?php
+    if(LoginValidator::isUserLogged()){
+      ?>
+      <li><a href="/login/login/logout">Logout</a></li>
+      <?php
+    }
+  ?>
 </ul>

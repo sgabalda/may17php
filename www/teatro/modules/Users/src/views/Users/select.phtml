@@ -2,4 +2,4 @@
 <?=Cervezza\Utils\Helpers\ViewHelpers::DibujaTabla($data['users']); ?>
 <br/>
 Has visto esta tabla <?=$data["numvisits"]?> veces.
-<?=$data["numvisits_session"]?> esta session.
+<?=$data["numvisits_session"]?> esta session <?=session_id()?>.

@@ -1,7 +1,7 @@
 {
   "formName":"LoginUsers",
   "method":"POST",
-  "action":"send.php",
+  "action":"login",
   "elements":[
 
 

@@ -46,6 +46,25 @@ class UserDataMapper{
 
   }
 
+  public function loadFromEmailAndPassw($user,$email){
+    $stmt=$this->connection->prepare("SELECT user_id, passwd ".
+      "from users".
+      " WHERE email=:email"
+    );
+    $stmt->bindParam(":email",$email);
+    $stmt->execute();
+    $values=$stmt->fetchAll();
+    if(isset($values[0])){
+      $user->id=$values[0]['user_id'];
+      $user->password=$values[0]['passwd'];
+    }else{
+      throw new \Exception("Invalid credentials");
+    }
+
+
+  }
+
+
   public function save($user){
     $this->connection->beginTransaction();
     try{
@@ -53,7 +72,8 @@ class UserDataMapper{
       if($user->id){
         $stmt=$this->connection->prepare("UPDATE USERS ".
         " SET ".
-        "name=:name, lastname=:lastname, email=:email, bdate=:bdate WHERE user_id=:id");
+        "name=:name, lastname=:lastname, email=:email, bdate=:bdate, ".
+        "passwd=:password WHERE user_id=:id");
         $stmt->bindParam(":id",$user->id);
       }else{
         $stmt=$this->connection->prepare("INSERT INTO USERS ".
@@ -66,6 +86,7 @@ class UserDataMapper{
       $stmt->bindParam(":lastname",$user->lastname);
       $stmt->bindParam(":email",$user->email);
       $stmt->bindParam(":bdate",$user->bdate);
+      $stmt->bindParam(":password",$user->password);
       $stmt->execute();
 
       //si es un update, usa el id para actualizar los transportes

@@ -3,7 +3,7 @@ require_once("spl_autoload_modules.php");
 require_once("spl_autoload_vendor.php");
 
 use Cervezza\Utils\FrontControllerView;
-
+session_start();
 $config = FrontControllerView::Config();
 $route = FrontControllerView::Router($_SERVER['REQUEST_URI']);
 $dispatch = FrontControllerView::Dispatch($route, $config);

@@ -4,6 +4,7 @@ namespace Users\Controller;
 use Cervezza\DataManagement\Model\DataManagementCsv;
 use Cervezza\DataManagement\Model\DataManagementDB;
 use Cervezza\Utils\Helpers\ViewHelpers;
+use Cervezza\Utils\LoginValidator;
 
 use Users\Model\DataMapping\User;
 
@@ -22,13 +23,11 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
     echo session_save_path();
     setcookie('numvisits',$numvisits,time()+2*24*60*60,"/");
 
-    session_start();
     if(isset($_SESSION['numvisits_session'])){
       $_SESSION['numvisits_session']=$_SESSION['numvisits_session']+1;
     }else{
       $_SESSION['numvisits_session']=1;
     }
-
     return $numvisits;
   }
 
@@ -54,6 +53,7 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
 
     if($_POST)
     {
+      $_POST["password"]=password_hash($_POST["password"],PASSWORD_DEFAULT);
         //validate form input and filter data
       DataManagementDB::SetData($config, $_POST);
       //header("Location: /users/users/select");
@@ -68,32 +68,39 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
   public function updateAction($config)
   {
 
-    if($_POST)
-    {
-      $userOb=new User();
-      $userOb->load($_POST['iduser']);
+    $userLogged=LoginValidator::needsLogin($_SERVER['REQUEST_URI']);
+    if($userLogged){
 
-      //TODO filter and validate input
-      $userOb->fromArray($_POST);
+      if($_POST)
+      {
+        $_POST["password"]=password_hash($_POST["password"],PASSWORD_DEFAULT);
+        echo $_REQUEST["password"];
 
-      $userOb->save();
-        //DataManagementCsv::UpdateData($config['users']['usersFilename'], $_POST, $_POST['iduser']);
-      header("Location: /users/users/select");
-    }
-    else
-    {
-      //$user = DataManagementDB::GetData($config, $this->router['params']['iduser']);
-      $userOb=new User();
-      $userOb->load($this->router['params']['iduser']);
+        $userOb=new User();
+        $userOb->load($_POST['iduser']);
 
-      $user=$userOb->toArray();
-      $user['iduser']=$this->router['params']['iduser'];
+        //TODO filter and validate input
+        $userOb->fromArray($_POST);
 
-      $data=[];
-      $data['user']=$user;
-      $data['form'] = "../modules/Users/src/Users/Model/Forms/user.json";
-      $content = ViewHelpers::RenderView($this->router, $data);
-      return array($data,$content);
+        $userOb->save();
+          //DataManagementCsv::UpdateData($config['users']['usersFilename'], $_POST, $_POST['iduser']);
+        header("Location: /users/users/select");
+      }
+      else
+      {
+        //$user = DataManagementDB::GetData($config, $this->router['params']['iduser']);
+        $userOb=new User();
+        $userOb->load($this->router['params']['iduser']);
+
+        $user=$userOb->toArray();
+        $user['iduser']=$this->router['params']['iduser'];
+
+        $data=[];
+        $data['user']=$user;
+        $data['form'] = "../modules/Users/src/Users/Model/Forms/user.json";
+        $content = ViewHelpers::RenderView($this->router, $data);
+        return array($data,$content);
+      }
     }
   }
 
