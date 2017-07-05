@@ -39,7 +39,7 @@ class ViewHelpers
           foreach ($value as $key2 => $value2)
           {
             $html.="<td>";
-                $html.=$value2;
+                $html.=htmlspecialchars($value2);
             $html.="</td>";
           }
 

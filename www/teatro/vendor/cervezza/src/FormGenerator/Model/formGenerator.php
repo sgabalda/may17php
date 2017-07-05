@@ -18,7 +18,7 @@ require('radioElement.php');
 require('selectElement.php');
 require('submitElement.php');
 
-function formGenerator($form, $data=array(), $method='', $action='')
+function formGenerator($form, $data=array(), $method='', $action='',$errors=array())
 {
   $html='';
 
@@ -45,6 +45,12 @@ function formGenerator($form, $data=array(), $method='', $action='')
 
   $html.=">";
     // Para cada elemento del formulario
+    if(!empty($errors)){
+      $html.=" <p class='error'>Hay errores en el formulario</p>";
+      foreach($errors as $field => $error){
+        $html.=$field.": ".$error."<br/>";
+      }
+    }
     foreach($jsonArray['elements'] as $element)
     {
       switch($element['type'])
@@ -52,7 +58,7 @@ function formGenerator($form, $data=array(), $method='', $action='')
         // Si es Text
         case 'text':
           // Contruir el campo de tipo texto
-          $html.=textElement($element, $data);
+          $html.=textElement($element, $data,$errors);
         break;
 
         // Si es Hidden

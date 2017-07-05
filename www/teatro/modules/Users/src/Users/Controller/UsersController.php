@@ -5,6 +5,7 @@ use Cervezza\DataManagement\Model\DataManagementCsv;
 use Cervezza\DataManagement\Model\DataManagementDB;
 use Cervezza\Utils\Helpers\ViewHelpers;
 use Cervezza\Utils\LoginValidator;
+use Cervezza\Utils\Validators\InputValidatorCoordinator;
 
 use Users\Model\DataMapping\User;
 
@@ -71,16 +72,30 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
     $userLogged=LoginValidator::needsLogin($_SERVER['REQUEST_URI']);
     if($userLogged){
 
-      if($_POST)
+      $isFormSubmission=FALSE;
+      $errors=array();
+      if($_POST){
+        $isFormSubmission=TRUE;
+        //validate input
+        $validator=new InputValidatorCoordinator($_POST,
+          "../modules/Users/src/Users/Model/Forms/user.json");
+          //forget about POST and GET
+        $validator->validateInput();
+
+        $errors=$validator->getErrors();
+        $cleanData=$validator->getClean();
+
+      }
+
+      if($isFormSubmission && empty($errors))
       {
-        $_POST["password"]=password_hash($_POST["password"],PASSWORD_DEFAULT);
-        echo $_REQUEST["password"];
+        $cleanData["password"]=password_hash($cleanData["password"],PASSWORD_DEFAULT);
 
         $userOb=new User();
-        $userOb->load($_POST['iduser']);
+        $userOb->load($cleanData['iduser']);
 
         //TODO filter and validate input
-        $userOb->fromArray($_POST);
+        $userOb->fromArray($cleanData);
 
         $userOb->save();
           //DataManagementCsv::UpdateData($config['users']['usersFilename'], $_POST, $_POST['iduser']);
@@ -98,6 +113,7 @@ class UsersController extends \Cervezza\Utils\Abstracts\Routeable
         $data=[];
         $data['user']=$user;
         $data['form'] = "../modules/Users/src/Users/Model/Forms/user.json";
+        $data['errors']=$errors;
         $content = ViewHelpers::RenderView($this->router, $data);
         return array($data,$content);
       }
